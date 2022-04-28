@@ -2,18 +2,35 @@
 
 namespace App\Helpers;
 
+/** FileSystemHelper трейт для обработки файловой системы
+ *
+ */
 trait FileSystemHelper
 {
+    /** getSrcPath() метод возвращает путь до папки src
+     *
+     * @return string
+     */
     private static function getSrcPath() : string
     {
         return dirname(__DIR__, 2);
     }
 
+    /** getProjectPath() метод возвращает путь до папки проекта
+     *
+     * @return string
+     */
     private static function getProjectPath() : string
     {
         return dirname(__DIR__, 3);
     }
 
+    /** getFreeName() метод вычисляет ближайшее свободное имя для файла
+     * @param string $dirPath папка сканирования
+     * @param string $name базовое имя файла
+     *
+     * @return string
+     */
     private static function getFreeName(string $dirPath, string $name) : string
     {
         self::initDirectory($dirPath);
@@ -37,6 +54,11 @@ trait FileSystemHelper
         return "{$filePath}_{$count}{$extension}";
     }
 
+    /** initDirectory() метод инициирует директорию
+     * @param string $path путь до указанной директории
+     * @return void
+     * @throw \Exception
+     */
     private static function initDirectory(string $path) : void
     {
         if (! is_dir($path) && ! mkdir($path, 0777, true)) {
@@ -44,6 +66,11 @@ trait FileSystemHelper
         }
     }
 
+    /** removeDirectory() метод удаляет укаанную папку
+     * @param string $path путь до указанной директории
+     * @return void
+     * @throw \Exception
+     */
     private static function removeDirectory(string $path) : void
     {
         foreach (scandir($path) as $file) {

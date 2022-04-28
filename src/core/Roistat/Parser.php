@@ -4,6 +4,9 @@ namespace App\Roistat;
 
 use App\Helpers;
 
+/** Parser Основной класс парсинга в задании
+ *
+ */
 class Parser implements Parser\ParseLoaderInterface, Parser\ParseSaverInterface
 {
     use Helpers\MethodsHelper, Helpers\FileSystemHelper;
@@ -15,6 +18,9 @@ class Parser implements Parser\ParseLoaderInterface, Parser\ParseSaverInterface
     private array $bufferStorage;
     private array $buffer;
 
+    /**
+     * @param string $parseType сохраняет тип парсинга
+     */
     public function __construct(string $parseType)
     {
         $parseMethod = self::prepareMethodName($parseType, 'parse');
@@ -64,6 +70,7 @@ class Parser implements Parser\ParseLoaderInterface, Parser\ParseSaverInterface
         return $this;
     }
 
+
     public function saveTo(string $saveType, string $fileName) : void
     {
         foreach ($this->bufferStorage as $bufferPath) {
@@ -86,6 +93,11 @@ class Parser implements Parser\ParseLoaderInterface, Parser\ParseSaverInterface
         self::removeDirectory(self::getSrcPath() . '/' . self::BUFFER_DIRECTORY);
     }
 
+    /** fetchParseStatictics() возвращает экземпляр объекта ParseStatictics со сформированной
+     * и готовой к сохранению статистикой
+     *
+     * @return Parser\ParseStatictics
+     */
     public function fetchParseStatictics() : Parser\ParseStatictics
     {
         $parseStatictics = new Parser\ParseStatictics($this->parseMethod);
@@ -94,6 +106,11 @@ class Parser implements Parser\ParseLoaderInterface, Parser\ParseSaverInterface
         return $parseStatictics;
     }
 
+    /** storeBuffer() временно сохраняет массивы буфера в корне проекта для оптимизации чтения
+     *
+     * @return void
+     * throw \Exception
+     */
     private function storeBuffer() : void
     {
         $bufferPath = self::getSrcPath() . '/' . self::BUFFER_DIRECTORY;
@@ -108,6 +125,11 @@ class Parser implements Parser\ParseLoaderInterface, Parser\ParseSaverInterface
         $this->buffer = [];
     }
 
+    /** parseAccessLog() Реализация парсинга из файлов типа access_log
+     * @param string $buffer Строка из буфера
+     *
+     * @return array
+     */
     private function parseAccessLog(string $buffer) : array
     {
         $accessLogPattern = [

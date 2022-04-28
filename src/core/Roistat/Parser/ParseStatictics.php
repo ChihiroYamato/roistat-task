@@ -4,6 +4,9 @@ namespace App\Roistat\Parser;
 
 use App\Helpers;
 
+/** ParseStatictics Класс реализует формирование статистики из загруженного файла
+ *
+ */
 class ParseStatictics implements ParseSaverInterface
 {
     use Helpers\MethodsHelper;
@@ -12,6 +15,9 @@ class ParseStatictics implements ParseSaverInterface
     private array $statictics;
     private array $storage;
 
+    /**
+     * @param string $parseMethod записывает метод парсинга
+     */
     public function __construct(string $parseMethod)
     {
         $this->parseMethod = self::prepareMethodName($parseMethod, 'calculate');
@@ -28,6 +34,12 @@ class ParseStatictics implements ParseSaverInterface
         $parseSaver->saveTo($saveType, $fileName);
     }
 
+    /** calculate() формирует статистику из переданного массива
+     * @param array $bufferStorage массив с распаршенной информацией
+     *
+     * @return void
+     * @throw \Exception
+     */
     public function calculate(array $bufferStorage) : void
     {
         foreach ($bufferStorage as $bufferPath) {
@@ -41,6 +53,11 @@ class ParseStatictics implements ParseSaverInterface
         }
     }
 
+    /** calculateParseAccessLog() реализация сбора статистики из acсess_log
+     * @param array $buffer массив с распаршенной информацией
+     *
+     * @return void
+     */
     private function calculateParseAccessLog(array $buffer) : void
     {
         foreach ($buffer as $bufferItem) {

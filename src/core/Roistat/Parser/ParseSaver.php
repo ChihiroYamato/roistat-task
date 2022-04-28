@@ -4,6 +4,9 @@ namespace App\Roistat\Parser;
 
 use App\Helpers;
 
+/** ParseSaver класс, реализующий сохранение работы парсера
+ *
+ */
 class ParseSaver implements ParseSaverInterface
 {
     use Helpers\MethodsHelper, Helpers\FileSystemHelper;
@@ -25,6 +28,12 @@ class ParseSaver implements ParseSaverInterface
         $this->{$saveMethod}($fileName);
     }
 
+    /** saveJson() реализация типа сохранения Json
+     * @param string $fileName
+     *
+     * @return void
+     * @throw \Exception
+     */
     private function saveJson(string $fileName) : void
     {
         $outputPath = self::getProjectPath() . '/' . self::OUTPUT_DIRECTORY;
