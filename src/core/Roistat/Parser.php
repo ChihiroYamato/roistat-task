@@ -8,7 +8,7 @@ class Parser implements Parser\ParseLoaderInterface, Parser\ParseSaverInterface
 {
     use Helpers\MethodsHelper, Helpers\FileSystemHelper;
 
-    private const MAX_BUFFER_COUNT = 2;
+    private const MAX_BUFFER_COUNT = 65536;
     private const BUFFER_DIRECTORY = 'buffer';
 
     private string $parseMethod;
