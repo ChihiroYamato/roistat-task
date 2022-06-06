@@ -1,7 +1,7 @@
 # roistat-task
 Test task by Roistat
 
-[Описание задания](./examples/Тестовое задание на вакансию PHP Developer.pdf)
+**[Описание задания](./examples/task.pdf)**
 
 ## Инициация
 перед запуском необходимо принициализировать composer в папке src проекта
